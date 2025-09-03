@@ -1,12 +1,22 @@
 ## Hi there 👋
 
-Im a guy who codes ig. I made NebuliOS 🌌, (I didn't make it alone but yk) I also made the tools and whatnot that are in the Operating System including:
+Im a guy who codes ig. 
+##
+I made NebuliOS 🌌, which includes:
 
-• The Music Player 🎶
+• Music Player 🎵
+
+• Movies/TV 🎬 
 
 • Mynd AI 🤖
 
-• Cyno's Arcade (Along with Cyno) 🎮
+• Chat (w/DMs) 🗨
+
+• Games 🎮 
+
+• Proxy 🌐
+##
+I also made qz-star 💫, which is a minimalistic proxy
 
 ##
-I also made a calculator with a formula button and a monkey button that adds 69 😁
+I also made a calculator ig (made in school/using AI cuz i was bored)
