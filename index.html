@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nebuli Labs</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --accent: #5c7cfa;
+  --text: #ffffff;
+  --text-dim: #bbbbbb;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path fill="none" stroke="%23222222" stroke-width="1" d="M0 0h40v40H0z"/></svg>') repeat;
+  background-size: 40px 40px;
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+}
+nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 5%;
+  z-index: 1000;
+}
+nav .logo { font-weight: 700; font-size: 1.3rem; letter-spacing: 1px; }
+nav ul { list-style: none; display: flex; gap: 30px; }
+nav a { color: var(--text); text-decoration: none; transition: color .3s; }
+nav a:hover { color: var(--accent); 
+}
+header {
+  text-align: center;
+  padding: 8rem 1rem 2rem;
+}
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+header p {
+  margin-top: 1rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 3rem 1rem 5rem;
+  flex-wrap: wrap;
+}
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  width: 160px;
+  min-height: 420px;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+.card:hover {
+  flex: 1 1 260px;
+  width: 260px;
+  transform: scale(1.05);
+  z-index: 5;
+}
+.card img.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  transition: opacity 0.35s ease;
+}
+.card:hover img.bg { opacity: 0.65; 
+}
+.card-content {
+  position: relative;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+}
+.card-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+.card:hover .card-title {
+  writing-mode: horizontal-tb;
+  transform: none;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.card p {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.35s ease, max-height 0.35s ease;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.card:hover p {
+  opacity: 1;
+  max-height: 200px;
+}
+.card a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card:hover a { opacity: 1; 
+}
+.collab {
+  padding: 4rem 5%;
+}
+.collab h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.group {
+  margin-bottom: 3rem;
+}
+.group h3 {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.collab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.profile-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1.5rem;
+  transition: transform .3s, box-shadow .3s;
+}
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.profile-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+.profile-card .name {
+  font-weight: 600;
+  margin-bottom: .3rem;
+}
+.profile-card .tag {
+  color: var(--text-dim);
+  margin-bottom: .3rem;
+}
+.profile-card .desc {
+  color: var(--text-dim);
+  margin-bottom: .5rem;
+}
+.profile-card a.btn {
+  background: #5865F2;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .3s;
+}
+.profile-card a.btn:hover { background: #4752c4; 
+}
+.footer {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  padding: 25px 0;
+  margin-top: 60px;
+}
+.footer a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color .3s;
+}
+.footer a:hover {
+  color: #4f8cff;
+}
+.footer .discord-icon {
+  width: 28px;
+  height: 28px;
+  filter: invert(100%);
+  transition: transform .25s;
+}
+.footer a:hover .discord-icon {
+  transform: scale(1.15);
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Nebuli Labs</div>
+  <ul>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#collaborators">Collaborators</a></li>
+  </ul>
+</nav>
+<header>
+  <h1>welcome!</h1>
+  <p>Explore our family of products, ranging from bypasses to exploits, Nebuli Labs has it all, so come, enjoy!</p>
+</header>
+<section id="products">
+  <div class="section-wrap">
+    <div class="card">
+      <img class="bg" src="https://nebulilabs.github.io/assets/nl_home/nebulios.png" alt="">
+      <div class="card-content">
+        <div class="card-title">NebuliOS</div>
+        <p>A sleek, clean, fully html webOS powered by Ultraviolet, which includes 750+ games, a variety of tools, and MORE!</p>
+        <a href="https://os.nebulilabs.xyz">Launch</a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="bg" src="https://nebulilabs.github.io/assets/nl_home/qz-star.jpg" alt="">
+      <div class="card-content">
+        <div class="card-title">QZ-Star</div>
+        <p>A minimalist proxy site powered by Ultraviolet, big enough to be your #1 proxy, small enough to not be detected.</p>
+        <a href="https://qz-star.github.io/">Launch</a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="bg" src="https://lh3.googleusercontent.com/keep-bbsk/AFgXFlIkFSLvCM59xA65FMIgXgjYmiVmnlttxzqIfqjzgF_IqsNniFNEc9TOeq3KW4nwW7CFHr0FJUWpQR6-9sP9lvGiOVkED_JXgg7fUfobUsj_okA3VVXFYQ=s1054" alt="">
+      <div class="card-content">
+        <div class="card-title">Nebuli Labs Docs</div>
+        <p>A document full of all your needs for bypasses, exploits, you name it!</p>
+        <a href="#">Visit</a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="bg" src="https://www.writermag.com/wp-content/uploads/2019/03/question-marks.jpg" alt="">
+      <div class="card-content">
+        <div class="card-title">??????</div>
+        <p>Late 2025/Early 2026</p>
+        <a href="">This button does nothing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="collaborators" class="collab">
+  <h2>Collaborators</h2>
+
+  <div class="group">
+    <h3>Site Devs</h3>
+    <div class="collab-grid">
+      <div class="profile-card">
+        <img src="https://nebulilabs.github.io/assets/nl_home/nebulord_pfp.png" alt="">
+        <div class="name">NebuLord</div>
+        <div class="tag">@callmeaqua</div>
+        <a class="btn" href="https://discord.com/users/989161123603419276" target="_blank">Full Profile</a>
+      </div>
+    </div>
+  </div>
+  <div class="group">
+    <h3>Team Docs</h3>
+    <div class="collab-grid">
+      <div class="profile-card">
+        <img src="https://nebulilabs.github.io/assets/nl_home/veteraning_pfp.png" alt="">
+        <div class="name">!     !¯V¯eteraning on top</div>
+        <div class="tag">@veteraning.</div>
+        <a class="btn" href="https://discord.com/users/1403397023129931948" target="_blank">Full Profile</a>
+      </div>
+      <div class="profile-card">
+        <img src="https://nebulilabs.github.io/assets/nl_home/jackwagon885_pfp.png" alt="">
+        <div class="name">JackWagon885</div>
+        <div class="tag">@jackwagon885</div>
+        <a class="btn" href="https://discord.com/users/917980983020650576" target="_blank">Full Profile</a>
+      </div>
+    </div>
+  </div>
+  <div class="group">
+    <h3>Sponsors</h3>
+    <div class="collab-grid">
+      <div class="profile-card">
+        <img src="https://nebulilabs.github.io/assets/nl_home/zxs_pfp.png" alt="">
+        <div class="name">ZXS</div>
+        <div class="tag">@._zxs._</div>
+        <div class="desc">Purchaced Nebuli Labs VPS</div>
+        <a class="btn" href="https://discord.com/users/1079096114273320971" target="_blank">Full Profile</a>
+      </div>
+      <div class="profile-card">
+        <img src="https://nebulilabs.github.io/assets/nl_home/technonyte_pfp.png" alt="">
+        <div class="name">Technonyte</div>
+        <div class="tag">@_technonyte</div>
+        <div class="desc">Purchaced Nebuli Labs Domain</div>
+        <a class="btn" href="https://discord.com/users/1287852541593518132" target="_blank">Full Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <a href="https://discord.gg/z4ZJnK2x7S" target="_blank" rel="noopener">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord"
+         class="discord-icon">
+    <span>Join the Discord</span>
+  </a>
+</footer>  
+</body>
+</html>
