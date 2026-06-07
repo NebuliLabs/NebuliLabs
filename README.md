@@ -1,4 +1,4 @@
-@call.me.aqua on dsc
+@qr7x. on dsc
 
 NebuliOS founder and owner
 
